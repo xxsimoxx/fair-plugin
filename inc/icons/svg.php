@@ -5,10 +5,15 @@
  * @package FAIR
  */
 
-namespace FAIR\Icons;
+$color = isset( $_GET['color'] ) ? sanitize_hex_color( '#' . stripslashes( $_GET['color'] ) ) : '';
 
-$color = sanitize_hex_color( '#' . $_GET['color'] );
-
+/**
+ * Sanitize hex color, same function in WP Core.
+ *
+ * @param  string $color Hex color.
+ *
+ * @return string
+ */
 function sanitize_hex_color( $color ) {
 	if ( '' === $color ) {
 		return '';
@@ -24,6 +29,7 @@ function sanitize_hex_color( $color ) {
 header( 'Content-Type: image/svg+xml' );
 
 // Echo the SVG content.
+// phpcs:ignore HM.Security.EscapeOutput.OutputNotEscaped
 echo '<?xml version="1.0" encoding="UTF-8"?>
 <svg id="a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
 	<rect width="200" height="200" style="fill:' . $color . ';"/>
